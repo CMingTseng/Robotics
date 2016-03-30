@@ -8,10 +8,12 @@ package model.object;
 
 import utils.Config;
 
+import java.io.Serializable;
+
 /**
  * @author Thien Nguyen created by Mar 26, 2016
  */
-public class Pixel {
+public class Pixel implements Serializable {
 	private int value;
 	private boolean visited;
 

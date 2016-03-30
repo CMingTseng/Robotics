@@ -9,59 +9,45 @@ package model.object;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.object.robot.Robot;
-
 /**
  * @author Thien Nguyen created on Mar 17, 2016
  */
 public class MegaCell extends Cell {
-	public enum Orientation {
-		EAST, WEST, SOUTH, NORTH;
-	}
+    private List<SubCell> subCells;
 
-	public static final int UNVISITED = 056;
-	public static final int VISITED = 146;
-	private int status;
-	private List<SubCell> subCells;
+    public MegaCell(int r, int c, int sizeRobot) {
+        super(r, c, sizeRobot);
+        node.y = (2 * r + 1) * sizeRobot;
+        node.x = (2 * c + 1) * sizeRobot;
+        subCells = new ArrayList<>();
+    }
 
-	public MegaCell(int r, int c) {
-		super(r, c);
-		node.y = (2 * r + 1) * Robot.SIZE_ROBOT;
-		node.x = (2 * c + 1) * Robot.SIZE_ROBOT;
-		status = UNVISITED;
-		subCells = new ArrayList<>();
-	}
+    public MegaCell(int r, int c, int type, int sizeRobot) {
+        this(r, c, sizeRobot);
+        this.type = type;
+    }
 
-	public MegaCell(int r, int c, int type) {
-		this(r, c);
-		this.type = type;
-	}
+    public MegaCell(MegaCell cell) {
+        this(cell.row, cell.col, cell.type, cell.sizeRobot);
+        setSubCell(cell.subCells);
+    }
 
-	public MegaCell(MegaCell cell) {
-		this(cell.row, cell.col, cell.type);
-		setSubCell(cell.subCells);
-	}
+    public SubCell getSubCell(int position) {
+        if (position >= subCells.size())
+            return subCells.get(subCells.size() - 1);
+        return subCells.get(position);
+    }
 
-	public int getStatus() {
-		return status;
-	}
+    public void addSubCell(SubCell cell) {
+        subCells.add(cell);
+    }
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+    private void setSubCell(List<SubCell> cells) {
+        subCells = cells;
+    }
 
-	public SubCell getSubCell(int position) {
-		if (position >= subCells.size())
-			position = subCells.size() - 1;
-		return subCells.get(position);
-	}
-
-	public void addSubCell(SubCell cell) {
-		subCells.add(cell);
-	}
-
-	public void setSubCell(List<SubCell> cells) {
-		subCells = cells;
-	}
+    public enum Orientation {
+        EAST, WEST, SOUTH, NORTH
+    }
 
 }

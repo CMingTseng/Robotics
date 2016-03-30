@@ -6,11 +6,6 @@
  */
 package model.algorithm.offline;
 
-import java.awt.Point;
-import java.util.List;
-import java.util.Stack;
-import java.util.Vector;
-
 import model.algorithm.Algorithm;
 import model.object.Edge;
 import model.object.MegaCell;
@@ -18,14 +13,18 @@ import model.object.Node;
 import model.object.robot.Robot;
 import utils.Config;
 
+import java.awt.*;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * @author Thien Nguyen created by Mar 23, 2016
  */
 public class OffSTC extends Algorithm {
 
-	public OffSTC(MegaCell[][] map, Robot robot, Point start, Vector<Edge> edge, Config mConfig) {
+	public OffSTC(MegaCell[][] map, Robot robot, Point start, List<Edge> edge, Config mConfig) {
 		super(map, robot, start, edge, mConfig);
-		DFS(mRoot);
+		dfs(mRoot);
 	}
 
 	public void run() {

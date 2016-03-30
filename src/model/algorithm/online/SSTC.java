@@ -6,11 +6,6 @@
  */
 package model.algorithm.online;
 
-import java.awt.Point;
-import java.util.List;
-import java.util.Stack;
-import java.util.Vector;
-
 import model.algorithm.Algorithm;
 import model.object.Edge;
 import model.object.MegaCell;
@@ -18,12 +13,16 @@ import model.object.Node;
 import model.object.robot.Robot;
 import utils.Config;
 
+import java.awt.*;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * @author Thien Nguyen created by Mar 23, 2016
  */
 public class SSTC extends Algorithm {
 
-	public SSTC(MegaCell[][] map, Robot robot, Point start, Vector<Edge> edge, Config mConfig) {
+	public SSTC(MegaCell[][] map, Robot robot, Point start, List<Edge> edge, Config mConfig) {
 		super(map, robot, start, edge, mConfig);
 	}
 
@@ -78,12 +77,12 @@ public class SSTC extends Algorithm {
 		}
 	}
 
-	public Node getNext(Node current) {
+	private Node getNext(Node current) {
 		List<Node> neighbor = getAdjacency(current);
-		if (neighbor.size() > 0)
-			for (int i = 0; i < neighbor.size(); i++) {
-				if (!neighbor.get(i).isVisited())
-					return neighbor.get(i);
+		if (!neighbor.isEmpty())
+			for (Node aNeighbor : neighbor) {
+				if (!aNeighbor.isVisited())
+					return aNeighbor;
 			}
 		return null;
 	}

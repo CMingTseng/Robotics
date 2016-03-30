@@ -6,38 +6,36 @@
  */
 package model.object;
 
-import java.awt.Point;
-
 import model.object.MegaCell.Orientation;
-import model.object.robot.Robot;
+
+import java.awt.*;
 
 /**
  * @author Thien Nguyen created on Mar 17, 2016
  */
 public class SubCell extends Cell {
+    public SubCell(int r, int c, int sizeRobot) {
+        super(r, c, sizeRobot);
+        node.y = (r * 2 + 1) * sizeRobot / 2;
+        node.x = (c * 2 + 1) * sizeRobot / 2;
+    }
 
-	public SubCell(int r, int c) {
-		super(r, c);
-		node.y = (r * 2 + 1) * Robot.SIZE_ROBOT / 2;
-		node.x = (c * 2 + 1) * Robot.SIZE_ROBOT / 2;
-	}
+    public Point getNode(Orientation ori) {
+        Point p = new Point();
+        if (ori == Orientation.WEST) {
+            p.x = col * sizeRobot;
+            p.y = (row * 2 + 1) * sizeRobot / 2;
 
-	public Point getNode(Orientation ori) {
-		Point p = new Point();
-		if (ori == Orientation.WEST) {
-			p.x = col * Robot.SIZE_ROBOT;
-			p.y = (row * 2 + 1) * Robot.SIZE_ROBOT / 2;
-
-		} else if (ori == Orientation.EAST) {
-			p.x = (col + 1) * Robot.SIZE_ROBOT;
-			p.y = (row * 2 + 1) * Robot.SIZE_ROBOT / 2;
-		} else if (ori == Orientation.SOUTH) {
-			p.x = (col * 2 + 1) * Robot.SIZE_ROBOT / 2;
-			p.y = (row + 1) * Robot.SIZE_ROBOT;
-		} else if (ori == Orientation.NORTH) {
-			p.x = (col * 2 + 1) * Robot.SIZE_ROBOT / 2;
-			p.y = row * Robot.SIZE_ROBOT;
-		}
-		return p;
-	}
+        } else if (ori == Orientation.EAST) {
+            p.x = (col + 1) * sizeRobot;
+            p.y = (row * 2 + 1) * sizeRobot / 2;
+        } else if (ori == Orientation.SOUTH) {
+            p.x = (col * 2 + 1) * sizeRobot / 2;
+            p.y = (row + 1) * sizeRobot;
+        } else if (ori == Orientation.NORTH) {
+            p.x = (col * 2 + 1) * sizeRobot / 2;
+            p.y = row * sizeRobot;
+        }
+        return p;
+    }
 }

@@ -6,19 +6,13 @@ package app;
  * Giảng viên hướng dẫn: TS. Phạm Văn Hải
  * Bộ môn Hệ thống thông tin - Viện CNTT & TT, ĐH BKHN
  */
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import view.MainView;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Thien Nguyen created on Mar 20, 2016
@@ -26,9 +20,9 @@ import view.MainView;
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	public Main() {
-		JMenuBar menuBar = new JMenuBar();
-		JMenu fileBar = new JMenu("File");
+    private Main() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileBar = new JMenu("File");
 		JMenu help = new JMenu("Help");
 
 		JMenuItem itemExit = new JMenuItem("Exit");
@@ -36,7 +30,7 @@ public class Main extends JFrame {
 		help.add(itemAbout);
 		fileBar.add(itemExit);
 
-		itemAbout.addActionListener(new ActionListener() {
+        itemAbout.addActionListener(element -> new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -59,23 +53,19 @@ public class Main extends JFrame {
 		setLayout(new FlowLayout());
 		add(new MainView());
 		pack();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Demo Smooth STC");
-		setVisible(true);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Demo Smooth STC");
+        setVisible(true);
 	}
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(
 			        UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
-		new Main();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+        final Main main = new Main();
+
 	}
 
 }

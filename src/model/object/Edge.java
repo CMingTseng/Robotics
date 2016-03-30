@@ -6,12 +6,13 @@
  */
 package model.object;
 
-import java.awt.Point;
+import java.awt.*;
+import java.io.Serializable;
 
 /**
  * @author Thien Nguyen created by Mar 29, 2016
  */
-public class Edge {
+public class Edge implements Serializable {
 	public Point from;
 	public Point to;
 }

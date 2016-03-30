@@ -6,16 +6,15 @@
  */
 package model.algorithm;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
 import model.object.Edge;
 import model.object.MegaCell;
 import model.object.Node;
 import model.object.robot.Robot;
 import utils.Config;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Thien Nguyen created by Mar 23, 2016
@@ -27,17 +26,17 @@ public abstract class Algorithm implements Runnable {
 	public static final int SMOOTH_STC_ON = 3;
 	public static final int FULL_SSTC_ON = 4;
 
-	protected Vector<Edge> mEdge;
-	protected Config mConfig;
-	protected Robot mRobot;
-	protected Node[][] mGraph;
+    protected List<Edge> mEdge;
+    protected Config mConfig;
+    protected Robot mRobot;
+    protected Node[][] mGraph;
 	protected Node mRoot;
-	protected Thread mThread;
+    private Thread mThread;
 
-	public Algorithm(MegaCell[][] map, Robot robot, Point start, Vector<Edge> edge, Config mConfig) {
-		this.mConfig = mConfig;
-		this.mEdge = edge;
-		this.mRobot = robot;
+    public Algorithm(MegaCell[][] map, Robot robot, Point start, List<Edge> edge, Config mConfig) {
+        this.mConfig = mConfig;
+        this.mEdge = edge;
+        this.mRobot = robot;
 
 		mGraph = new Node[map.length][map[0].length];
 		initData(map);
@@ -51,10 +50,10 @@ public abstract class Algorithm implements Runnable {
 
 	abstract protected void initData(MegaCell[][] arr);
 
-	protected void DFS(Node current) {
-		current.setVisited(true);
-		List<Node> neighbor = getAdjacency(current);
-		for (Node c : neighbor) {
+    protected void dfs(Node current) {
+        current.setVisited(true);
+        List<Node> neighbor = getAdjacency(current);
+        for (Node c : neighbor) {
 			if (!c.isVisited()) {
 				Edge e = new Edge();
 				e.from = new Point(current.element().getNode().x, current.element().getNode().y);
@@ -63,10 +62,10 @@ public abstract class Algorithm implements Runnable {
 				c.setParent(current);
 				current.addChildrent(c);
 				if (c.element().getType() == MegaCell.FREE)
-					DFS(c);
-				else {
-					c.setVisited(true);
-				}
+                    dfs(c);
+                else {
+                    c.setVisited(true);
+                }
 			}
 		}
 
@@ -76,10 +75,11 @@ public abstract class Algorithm implements Runnable {
 		Node parent = current.getParent();
 		int r = current.element().row;
 		int c = current.element().col;
-		int r0 = r, c0 = r;
-		if (parent == null) {
-			if (c < mGraph[0].length - 1 && mGraph[r][c + 1].element().getType() == MegaCell.FREE) {
-				c0 = c + 1;
+        int r0 = r;
+        int c0 = r;
+        if (parent == null) {
+            if (c < mGraph[0].length - 1 && mGraph[r][c + 1].element().getType() == MegaCell.FREE) {
+                c0 = c + 1;
 			} else if (c > 0 && mGraph[r][c - 1].element().getType() == MegaCell.FREE) {
 				c0 = c - 1;
 			} else if (r < mGraph.length - 1 && mGraph[r + 1][c].element().getType() == MegaCell.FREE) {
@@ -132,11 +132,13 @@ public abstract class Algorithm implements Runnable {
 
 	protected void setInitPostion(Node root) {
 		Node preNode = root.getPreNode();
-		int x0 = 0, y0 = 0;
-		int r0, c0;
-		int r = root.element().row;
-		int c = root.element().col;
-		if (preNode == null) {
+        int x0 = 0;
+        int y0 = 0;
+        int r0;
+        int c0;
+        int r = root.element().row;
+        int c = root.element().col;
+        if (preNode == null) {
 			r0 = root.initOrien.x;
 			c0 = root.initOrien.y;
 		} else {

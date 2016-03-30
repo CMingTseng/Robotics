@@ -6,7 +6,7 @@
  */
 package model.object;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,14 +14,13 @@ import java.util.List;
  * @author Thien Nguyen created by Mar 22, 2016
  */
 public class Node {
+	public Point initOrien;
 	private MegaCell element;
 	private Node parent;
 	private boolean visited;
 	private List<Node> childrent;
 	private Node preNode;
 	private int numVisited;
-
-	public Point initOrien;
 
 	public Node(MegaCell x) {
 		element = x;
@@ -33,10 +32,6 @@ public class Node {
 
 	public MegaCell element() {
 		return element;
-	}
-
-	public void setElement(MegaCell c) {
-		element = c;
 	}
 
 	public List<Node> getChildrent() {

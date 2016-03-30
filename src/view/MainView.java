@@ -5,14 +5,12 @@
  */
 package view;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
-
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-
 import model.algorithm.Algorithm;
 import utils.Config;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 
 /**
  * @author Thien Nguyen created on Mar 20, 2016
@@ -21,7 +19,6 @@ public class MainView extends JPanel implements Runnable {
 	private static final long serialVersionUID = -7403669424377122747L;
 	private Config mConfig;
 	private ControlPanel controller;
-	private Thread thread;
 	private int[] setting;
 	private JPanel contain1;
 	private JPanel contain2;
@@ -31,9 +28,7 @@ public class MainView extends JPanel implements Runnable {
 		setLayout(null);
 		initData();
 		initComponent();
-		if (thread == null)
-			thread = new Thread(this);
-		thread.start();
+		new Thread(this).start();
 	}
 
 	private void initData() {
