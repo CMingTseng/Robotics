@@ -1,0 +1,29 @@
+include "map.inc"
+include "pioneer.inc"
+size [85 51]
+gui_disable 0
+gui_interval 100
+gui_menu_interval 20
+window
+(
+	size [700 510]
+	show_data 1
+	scale 10
+)
+
+# load an environment bitmap
+floorplan
+(
+	bitmap "bitmaps/floor.png"
+	map_resolution 0.085
+	size [59 43 1]
+	name "indoor"
+)
+
+# create a robot
+pioneer2dx
+(
+  name "robot1"
+  color "red"
+  pose [-9.0 7.0 0 0]
+)
